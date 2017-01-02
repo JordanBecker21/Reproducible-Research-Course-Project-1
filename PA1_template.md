@@ -2,9 +2,7 @@
 title: "ReproducibleResearch_CourseProject1"
 author: "Jordan"
 date: "January 1, 2017"
-output:
-  html_document: default
-  pdf_document: default
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -31,7 +29,18 @@ interval: Identifier for the 5-minute interval in which measurement was taken
 The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.
 
 ```{r activity}
-activityData <- read.csv ("activity.csv", header = T, sep = ",", stringsAsFactors = F)
+#Creating the directory to process the data
+if(!file.exists("data")) { dir.create("data")}
+
+#Downloading and unziping the data
+fileUrl <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+
+if(!file.exists("./data/original.zip")) 
+{download.file(fileUrl,destfile="./data/original.zip")
+    unzip("./data/original.zip",exdir = "./data") 
+}
+rm(fileUrl)
+activityData <- read.csv ("data/activity.csv", header = T, sep = ",", stringsAsFactors = F)
 ```
 
 ## Convert Date Column to the Rigth Format
@@ -185,4 +194,4 @@ g <- ggplot (newInterval, aes (interval, mean.steps))
 g + geom_line() + facet_grid (day~.) + theme(axis.text = element_text(size = 12), 
       axis.title = element_text(size = 14)) + labs(y = "Number of Steps") + labs(x = "Interval")
 ```
-So quite a bit off difference between weekends and weekdays in terms of activity. More activityy in the middle of the day on weekends - probably because people aren't sitting around at work...
+So quite a bit off difference between weekends and weekdays in terms of activity. More activity in the middle of the day on weekends - probably because people aren't sitting around at work...

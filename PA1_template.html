@@ -133,18 +133,7 @@ $(document).ready(function () {
 <p>The data for this assignment can be downloaded from the course web site:</p>
 <p>Dataset: Activity monitoring data [52K] The variables included in this dataset are:</p>
 <p>steps: Number of steps taking in a 5-minute interval (missing values are coded as NA) date: The date on which the measurement was taken in YYYY-MM-DD format interval: Identifier for the 5-minute interval in which measurement was taken The dataset is stored in a comma-separated-value (CSV) file and there are a total of 17,568 observations in this dataset.</p>
-<pre class="r"><code>#Creating the directory to process the data
-if(!file.exists(&quot;data&quot;)) { dir.create(&quot;data&quot;)}
-
-#Downloading and unziping the data
-fileUrl &lt;- &quot;https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip&quot;
-
-if(!file.exists(&quot;./data/original.zip&quot;)) 
-{download.file(fileUrl,destfile=&quot;./data/original.zip&quot;)
-    unzip(&quot;./data/original.zip&quot;,exdir = &quot;./data&quot;) 
-}
-rm(fileUrl)
-activityData &lt;- read.csv (&quot;data/activity.csv&quot;, header = T, sep = &quot;,&quot;, stringsAsFactors = F)</code></pre>
+<pre class="r"><code>activityData &lt;- read.csv (&quot;activity.csv&quot;, header = T, sep = &quot;,&quot;, stringsAsFactors = F)</code></pre>
 <div id="convert-date-column-to-the-rigth-format" class="section level2">
 <h2>Convert Date Column to the Rigth Format</h2>
 <pre class="r"><code>activityData$date &lt;- as.Date(activityData$date, &quot;%Y-%m-%d&quot;)
